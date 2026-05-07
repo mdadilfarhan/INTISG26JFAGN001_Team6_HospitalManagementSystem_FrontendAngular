@@ -18,14 +18,12 @@
                 <p class="text-gray-500 text-sm leading-relaxed mb-10 max-w-md">
                     Pulse Point brings together every essential aspect of healthcare into one seamless platform. From
                     connecting patients with trusted doctors and managing lab tests to ensuring safe medicine dispensing
-                    and simplifying mediclaim processes, our system is designed to make healthcare smoother, faster, and
-                    more reliable.
+                    and simplifying mediclaim processes.
                 </p>
 
                 <!-- Illustration placeholder — replace with your image -->
-                <div class="w-full max-w-xs flex justify-center items-center">
-                    <!-- TODO: Replace with: <img src="working-illustration.png" alt="How it works" class="w-full" /> -->
-                    <img src="illustration.png" alt="How it works" class="items-center -mt-12" />
+                <div class="flex justify-center items-center">
+                    <img src="illustration.png" alt="How it works" class="h-[300px] w-[300px] mx-auto -mt-8" />
                 </div>
             </div>
 
@@ -45,7 +43,7 @@
                             {{ step.number < 10 ? '0' + step.number : step.number }} </span>
 
                                 <!-- Label -->
-                                <h3 class="text-base font-semibold flex-1"
+                                <h3 class="text-base font-medium flex-1"
                                     [class]="isActive(step.number) ? 'text-white' : 'text-gray-800'">
                                     {{ step.label }}
                                 </h3>
@@ -54,17 +52,17 @@
                                 <button
                                     class="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all"
                                     [class]="isActive(step.number) 
-                  ? 'border-2 border-white text-white' 
-                  : 'border-2 border-[#1a7fd4] text-[#1a7fd4]'">
+                  ? 'border-[1px] border-white text-white' 
+                  : 'border-[1px] border-[#1a7fd4] text-[#1a7fd4]'">
                                     @if (isActive(step.number)) {
                                     <!-- Minus icon -->
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5"
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
                                     </svg>
                                     } @else {
                                     <!-- Plus icon -->
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5"
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14" />
                                     </svg>

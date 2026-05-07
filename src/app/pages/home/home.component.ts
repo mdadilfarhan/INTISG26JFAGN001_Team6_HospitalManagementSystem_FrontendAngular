@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { HeroComponent } from '../../components/hero/hero.component';
 import { SolutionsComponent } from '../../components/solutions/solutions.component';
-import { BlogComponent } from '../../components/blog/blog.component';
+import { DoctorsComponent } from '../../components/doctor/doctor.component';
 import { HowItWorksComponent } from '../../components/working/working.component';
+import { BlogComponent } from '../../components/blog/blog.component';
 
 @Component({
     selector: 'app-home',
@@ -10,8 +11,10 @@ import { HowItWorksComponent } from '../../components/working/working.component'
     imports: [
         HeroComponent,
         SolutionsComponent,
-        BlogComponent,
+        DoctorsComponent,
         HowItWorksComponent,
+        BlogComponent,
+
     ],
     templateUrl: './home.component.html'
 })
