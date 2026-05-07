@@ -1,4 +1,3 @@
-/* ── HOST ── */
 :host {
   display: block;
   position: relative;
@@ -6,7 +5,6 @@
   overflow: hidden;
 }
 
-/* ── BACKGROUND ── */
 .bg-base {
   position: fixed; inset: 0; z-index: 0;
   background: linear-gradient(145deg,
@@ -39,7 +37,6 @@
   background-size: 30px 30px;
 }
 
-/* ── PAGE LAYOUT ── */
 .page {
   position: relative; z-index: 10;
   display: grid;
@@ -48,7 +45,6 @@
   overflow: hidden;
 }
 
-/* ── LEFT HERO ── */
 .hero {
   display: flex; flex-direction: column;
   justify-content: center; padding: 56px 62px;
@@ -132,7 +128,6 @@
 .chip svg { width: 13px; height: 13px; fill: #2563c8; flex-shrink: 0; }
 .chip span { font-size: 11px; font-weight: 500; color: #2d4a7a; white-space: nowrap; }
 
-/* ── RIGHT PANEL ── */
 .auth-panel {
   display: flex; align-items: flex-start; justify-content: center;
   padding: 32px 28px;
@@ -155,7 +150,6 @@
 }
 @keyframes card-in { from{opacity:0;transform:translateY(26px) scale(.97);} to{opacity:1;transform:none;} }
 
-/* ── TABS ── */
 .tab-wrapper {
   background: rgba(37,99,200,.06);
   border: 1px solid rgba(255,255,255,.7);
@@ -182,7 +176,6 @@
 }
 .tab-btn.active { color: #fff; }
 
-/* ── ALERTS ── */
 .alert {
   padding: 10px 14px; border-radius: 10px;
   font-size: 13px; font-weight: 500; margin-bottom: 16px;
@@ -190,7 +183,6 @@
 .alert-error { background: rgba(220,38,38,.09); color: #dc2626; border: 1px solid rgba(220,38,38,.2); }
 .alert-success { background: rgba(5,150,105,.09); color: #059669; border: 1px solid rgba(5,150,105,.2); }
 
-/* ── FORM ── */
 .form-title { font-family: 'Sora', sans-serif; font-size: 21px; font-weight: 700; color: #0a1628; margin-bottom: 5px; }
 .form-sub { font-size: 13px; color: #2d4a7a; margin-bottom: 22px; line-height: 1.6; }
 
@@ -230,7 +222,6 @@ input:focus {
 .eye-btn:hover { color: #2563c8; }
 .eye-btn svg { width: 15px; height: 15px; }
 
-/* ── CTA ── */
 .btn-cta {
   width: 100%; padding: 13px; margin-top: 6px;
   background: linear-gradient(135deg, #2563c8 0%, #1a4fa0 100%);
@@ -252,7 +243,6 @@ input:focus {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .page { grid-template-columns: 1fr; }
   .hero { display: none; }

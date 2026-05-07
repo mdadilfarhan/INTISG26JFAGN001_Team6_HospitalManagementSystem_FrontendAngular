@@ -1,4 +1,3 @@
-<!-- Background -->
 <div class="bg-base"></div>
 <div class="bg-orb bg-orb-1"></div>
 <div class="bg-orb bg-orb-2"></div>
@@ -7,7 +6,6 @@
 
 <div class="app">
 
-  <!-- ═══════════ SIDEBAR ═══════════ -->
   <aside class="sidebar">
     <div class="sb-logo">
       <div class="sb-logo-icon">
@@ -38,7 +36,6 @@
       </div>
     </nav>
 
-    <!-- Profile -->
     <div class="sb-profile" (click)="logout()">
       <div class="avatar">SA</div>
       <div class="sb-profile-info">
@@ -49,10 +46,8 @@
     </div>
   </aside>
 
-  <!-- ═══════════ MAIN ═══════════ -->
   <main class="main">
 
-    <!-- Header -->
     <div class="pg-header">
       <div>
         <div class="pg-eyebrow">Hospital Management System</div>
@@ -78,10 +73,8 @@
       </div>
     </div>
 
-    <!-- Content -->
     <div class="content">
 
-      <!-- Stat Cards -->
       <div class="stats-row">
         <div class="stat-card">
           <div class="stat-card-top">
@@ -121,7 +114,6 @@
         </div>
       </div>
 
-      <!-- Search by ID / Username -->
       <div class="search-panel">
         <div class="search-panel-title">Find User</div>
         <div class="search-panel-row">
@@ -155,7 +147,6 @@
         </div>
       </div>
 
-      <!-- Table Section -->
       <div class="sec-header">
         <span class="sec-title">All Users</span>
         <div class="sec-actions">
@@ -171,13 +162,11 @@
         </div>
       </div>
 
-      <!-- Loading -->
       <div class="loading-state" *ngIf="isLoadingUsers">
         <span class="spin-blue"></span>
         <span>Loading users…</span>
       </div>
 
-      <!-- Table -->
       <div class="table-wrap" *ngIf="!isLoadingUsers">
         <table>
           <thead>
@@ -237,7 +226,6 @@
           </tbody>
         </table>
 
-        <!-- Empty state -->
         <div class="empty-state" *ngIf="filteredUsers().length === 0">
           <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
           <div>No users found.</div>
@@ -248,7 +236,6 @@
         </div>
       </div>
 
-      <!-- Notifications inline -->
       <div class="two-col" style="margin-top: 20px;">
         <div>
           <div class="sec-header">
@@ -288,7 +275,6 @@
   </main>
 </div>
 
-<!-- ═══════ ADD USER MODAL ═══════ -->
 <div class="modal-bg" [class.show]="showAddModal" (click)="closeModal('add')">
   <div class="modal" (click)="$event.stopPropagation()">
     <button class="modal-close" (click)="closeModal('add')">
@@ -337,7 +323,6 @@
   </div>
 </div>
 
-<!-- ═══════ VIEW USER MODAL ═══════ -->
 <div class="modal-bg" [class.show]="showViewModal" (click)="closeModal('view')">
   <div class="modal" (click)="$event.stopPropagation()" *ngIf="selectedUser">
     <button class="modal-close" (click)="closeModal('view')">
@@ -386,7 +371,6 @@
   </div>
 </div>
 
-<!-- ═══════ DELETE MODAL ═══════ -->
 <div class="modal-bg" [class.show]="showDeleteModal" (click)="closeModal('delete')">
   <div class="modal modal-sm" (click)="$event.stopPropagation()">
     <div class="del-icon">
@@ -406,7 +390,6 @@
   </div>
 </div>
 
-<!-- ═══════ NOTIFICATIONS MODAL ═══════ -->
 <div class="modal-bg" [class.show]="showNotifModal" (click)="closeModal('notif')">
   <div class="modal" (click)="$event.stopPropagation()">
     <button class="modal-close" (click)="closeModal('notif')">
@@ -441,7 +424,6 @@
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast-container" *ngIf="showToast">
   <div class="toast" [ngClass]="'toast-' + toastType">
     <div class="toast-dot" [ngClass]="'dot-' + toastType"></div>

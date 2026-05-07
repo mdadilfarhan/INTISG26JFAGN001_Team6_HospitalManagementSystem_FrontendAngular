@@ -17,11 +17,6 @@ export interface LogoutRequest {
   refreshToken: string;
 }
 
-// export interface AuthResponse {
-//   accessToken: string;
-//   refreshToken: string;
-// }
-
 export interface AuthResponse {
   accessToken: string;
   refreshToken: string;

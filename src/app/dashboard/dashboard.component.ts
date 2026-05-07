@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../core/services/user.service';
 import { NotificationService } from '../core/services/notification.service';
+import { AuthService } from '../core/services/auth.service';
 import {
   UserResponse,
   CreateUserRequest,
@@ -20,12 +21,10 @@ import {
 })
 export class DashboardComponent implements OnInit {
 
-  // ── State ──
   users = signal<UserResponse[]>([]);
   notifications = signal<NotificationResponse[]>([]);
   filteredUsers = signal<UserResponse[]>([]);
 
-  // ── UI flags ──
   isLoadingUsers = false;
   isLoadingNotifs = false;
   showAddModal = false;
@@ -34,28 +33,22 @@ export class DashboardComponent implements OnInit {
   showNotifModal = false;
   isSubmitting = false;
 
-  // ── Search & filter ──
   searchQuery = '';
   activeFilter = 'all';
 
-  // ── Selected user ──
   selectedUser: UserResponse | null = null;
 
-  // ── Stats ──
   totalUsers = 0;
   activeUsers = 0;
   enabledUsers = 0;
   disabledUsers = 0;
 
-  // ── Unread count ──
   unreadCount = 0;
 
-  // ── Toast ──
   toastMessage = '';
   toastType: 'ok' | 'err' | 'info' = 'info';
   showToast = false;
 
-  // ── Add user form ──
   newUser: CreateUserRequest & { confirmPassword: string } = {
     username: '',
     password: '',
@@ -66,29 +59,29 @@ export class DashboardComponent implements OnInit {
   selectedRole: RoleName = RoleName.DOCTOR;
   addError = '';
 
-  // ── Search by ID/username ──
   searchById = '';
   searchByUsername = '';
   searchResult: UserResponse | null = null;
   searchError = '';
 
-  // Expose RoleName enum to template
   RoleName = RoleName;
 
-  readonly CURRENT_USER_ID = 1;
-
   constructor(
-    private userService: UserService,
-    private notificationService: NotificationService,
-    private router: Router
+  private userService: UserService,
+  private notificationService: NotificationService,
+  private authService: AuthService,
+  private router: Router
   ) {}
+
+  get currentUserId(): number {
+    return this.authService.getUserId() ?? 1;
+  }
 
   ngOnInit() {
     this.loadUsers();
     this.loadNotifications();
   }
 
-  // ── LOAD ALL USERS ──
   loadUsers() {
     this.isLoadingUsers = true;
     this.userService.getAllUsers().subscribe({
@@ -105,10 +98,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // ── LOAD NOTIFICATIONS ──
   loadNotifications() {
     this.isLoadingNotifs = true;
-    this.notificationService.getAllNotifications(this.CURRENT_USER_ID).subscribe({
+    this.notificationService.getAllNotifications(this.currentUserId).subscribe({
       next: (data) => {
         this.notifications.set(data);
         this.unreadCount = data.filter(n => !n.read).length;
@@ -120,21 +112,17 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // ── STATS ──
   updateStats() {
     const all = this.users();
     this.totalUsers = all.length;
     this.enabledUsers = all.filter(u => u.enabled).length;
     this.disabledUsers = all.filter(u => !u.enabled).length;
-    // No status field in backend — using enabled as proxy
     this.activeUsers = this.enabledUsers;
   }
 
-  // ── FILTER ──
   applyFilter() {
     let result = [...this.users()];
 
-    // Search filter
     if (this.searchQuery.trim()) {
       const q = this.searchQuery.toLowerCase();
       result = result.filter(u =>
@@ -145,7 +133,6 @@ export class DashboardComponent implements OnInit {
       );
     }
 
-    // Status filter
     if (this.activeFilter === 'enabled') {
       result = result.filter(u => u.enabled);
     } else if (this.activeFilter === 'disabled') {
@@ -164,7 +151,6 @@ export class DashboardComponent implements OnInit {
     this.applyFilter();
   }
 
-  // ── ADD USER ──
   openAddModal() {
     this.newUser = {
       username: '',
@@ -225,13 +211,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // ── VIEW USER ──
   viewUser(user: UserResponse) {
     this.selectedUser = user;
     this.showViewModal = true;
   }
 
-  // ── DELETE USER ──
   openDeleteModal(user: UserResponse) {
     this.selectedUser = user;
     this.showDeleteModal = true;
@@ -256,7 +240,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // ── SEARCH BY ID ──
   onSearchById() {
     this.searchError = '';
     this.searchResult = null;
@@ -269,7 +252,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // ── SEARCH BY USERNAME ──
   onSearchByUsername() {
     this.searchError = '';
     this.searchResult = null;
@@ -284,7 +266,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // ── NOTIFICATIONS ──
   openNotifModal() {
     this.showNotifModal = true;
   }
@@ -303,7 +284,7 @@ export class DashboardComponent implements OnInit {
   }
 
   markAllRead() {
-    this.notificationService.markAllAsRead(this.CURRENT_USER_ID).subscribe({
+    this.notificationService.markAllAsRead(this.currentUserId).subscribe({
       next: () => {
         this.notifications.set(
           this.notifications().map(n => ({ ...n, read: true }))
@@ -314,7 +295,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // ── HELPERS ──
   getInitials(fullName: string): string {
     return fullName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   }
@@ -368,9 +348,7 @@ export class DashboardComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    this.router.navigate(['/login']);
+  this.authService.logout();
   }
 
   getRolesList(roles: RoleName[]): string {

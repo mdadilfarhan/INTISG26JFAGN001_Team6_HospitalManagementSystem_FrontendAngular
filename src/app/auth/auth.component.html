@@ -8,7 +8,6 @@
 
 <div class="page">
 
-  <!-- LEFT HERO -->
   <section class="hero">
     <div class="hero-badge">
       <div class="badge-dot"></div>
@@ -66,22 +65,18 @@
     </div>
   </section>
 
-  <!-- RIGHT AUTH -->
   <aside class="auth-panel">
     <div class="auth-card">
 
-      <!-- Tabs -->
       <div class="tab-wrapper">
         <div class="tab-indicator" [class.signup]="activeTab() === 'signup'"></div>
         <button class="tab-btn" [class.active]="activeTab() === 'login'" (click)="switchTab('login')">Sign In</button>
         <button class="tab-btn" [class.active]="activeTab() === 'signup'" (click)="switchTab('signup')">Create Account</button>
       </div>
 
-      <!-- Error / Success messages -->
       <div class="alert alert-error" *ngIf="errorMessage">{{ errorMessage }}</div>
       <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
 
-      <!-- LOGIN FORM -->
       <div class="form-panel" *ngIf="activeTab() === 'login'">
         <div class="form-title">Welcome back</div>
         <div class="form-sub">Access your PulsePoint dashboard securely</div>
@@ -135,7 +130,6 @@
         </button>
       </div>
 
-      <!-- SIGNUP FORM -->
       <div class="form-panel" *ngIf="activeTab() === 'signup'">
         <div class="form-title">Create account</div>
         <div class="form-sub">Register as a new hospital staff member</div>

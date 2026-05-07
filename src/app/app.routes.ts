@@ -1,7 +1,6 @@
-// import { Routes } from '@angular/router';
-
-// export const routes: Routes = [];
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
+import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
   {
@@ -17,8 +16,19 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () =>
-      import('./dashboard/dashboard.component').then(m => m.DashboardComponent)
+      import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
+    canActivate: [authGuard, roleGuard],
+    data: { roles: ['ADMIN'] }
   },
+  // Doctor dashboard — only DOCTOR allowed
+  // {
+  //   path: 'doctor-dashboard',
+  //   loadComponent: () =>
+  //     import('./doctor/doctor.component')
+  //       .then(m => m.DoctorComponent),
+  //   canActivate: [authGuard, roleGuard],
+  //   data: { roles: ['DOCTOR'] }
+  // },
   {
     path: '**',
     redirectTo: 'login'

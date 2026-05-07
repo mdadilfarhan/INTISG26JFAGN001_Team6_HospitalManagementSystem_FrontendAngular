@@ -14,16 +14,13 @@ import { LoginRequest, RegisterRequest } from '../core/models/index';
 })
 export class AuthComponent {
 
-  // Tab state
   activeTab = signal<'login' | 'signup'>('login');
 
-  // Login form
   loginForm: LoginRequest = {
     username: '',
     password: ''
   };
 
-  // Signup form
   signupForm: RegisterRequest & { confirmPassword: string } = {
     username: '',
     password: '',
@@ -31,17 +28,28 @@ export class AuthComponent {
     confirmPassword: ''
   };
 
-  // UI state
   showLoginPassword = false;
   showSignupPassword = false;
   isLoading = false;
   errorMessage = '';
   successMessage = '';
 
+  private readonly ROLE_REDIRECT_MAP: Record<string, string> = {
+    'ADMIN':          '/dashboard',
+    'DOCTOR':         '/doctor-dashboard',
+    'PHARMACIST':     '/pharmacy-dashboard',
+    'LAB_TECHNICIAN': '/lab-dashboard',
+    'USER':           '/patient-dashboard'
+  };
+
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+    if (this.authService.isLoggedIn()) {
+      this.redirectByRole(this.authService.getRole());
+    }
+  }
 
   switchTab(tab: 'login' | 'signup') {
     this.activeTab.set(tab);
@@ -71,14 +79,13 @@ export class AuthComponent {
     this.authService.login(this.loginForm).subscribe({
       next: (response) => {
         this.isLoading = false;
-        // Store tokens temporarily — will be replaced with proper auth later
-        localStorage.setItem('accessToken', response.accessToken);
-        localStorage.setItem('refreshToken', response.refreshToken);
-        this.router.navigate(['/dashboard']);
+        const role = this.authService.getRole();
+        this.redirectByRole(role);
       },
       error: (err) => {
         this.isLoading = false;
-        this.errorMessage = err?.error?.message || 'Invalid username or password.';
+        this.errorMessage =
+          err?.error?.message || 'Invalid username or password.';
       }
     });
   }
@@ -114,14 +121,32 @@ export class AuthComponent {
     this.authService.register(request).subscribe({
       next: (response) => {
         this.isLoading = false;
-        this.successMessage = response.message || 'Account created! You can now sign in.';
-        // Switch to login after short delay
+        this.successMessage =
+          response.message || 'Account created! You can now sign in.';
         setTimeout(() => this.switchTab('login'), 2000);
       },
       error: (err) => {
         this.isLoading = false;
-        this.errorMessage = err?.error?.message || 'Registration failed. Please try again.';
+        this.errorMessage =
+          err?.error?.message || 'Registration failed. Please try again.';
       }
     });
+  }
+
+  private redirectByRole(role: string | null) {
+    if (!role) {
+      this.errorMessage = 'Unable to determine user role.';
+      this.authService.clearSession();
+      return;
+    }
+
+    const route = this.ROLE_REDIRECT_MAP[role];
+
+    if (route) {
+      this.router.navigate([route]);
+    } else {
+      this.errorMessage = `No dashboard available for role: ${role}`;
+      this.authService.clearSession();
+    }
   }
 }
