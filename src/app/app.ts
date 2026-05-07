@@ -1,16 +1,4 @@
-// import { Component, signal } from '@angular/core';
-// import { RouterOutlet } from '@angular/router';
-
-// @Component({
-//   selector: 'app-root',
-//   imports: [RouterOutlet],
-//   templateUrl: './app.html',
-//   styleUrl: './app.css'
-// })
-// export class App {
-//   protected readonly title = signal('PulsePoint');
-// }
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -26,4 +14,6 @@ import { RouterOutlet } from '@angular/router';
     }
   `]
 })
-export class AppComponent {}
+export class AppComponent {
+    protected readonly title = signal('PulsePoint');
+}
