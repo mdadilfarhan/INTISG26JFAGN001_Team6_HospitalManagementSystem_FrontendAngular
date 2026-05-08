@@ -11,11 +11,12 @@ import {
   NotificationResponse,
   RoleName
 } from '../core/models/index';
+import { SidebarComponent } from '../shared/sidebar/sidebar';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, SidebarComponent],
   templateUrl: './adminDashboard.component.html',
   styleUrls: ['./adminDashboard.component.css']
 })
