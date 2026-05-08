@@ -47,11 +47,11 @@ export class HowItWorksComponent {
         },
     ]);
 
-    // Track which step is currently expanded (default: step 2)
+    // tracks which step is currently expanded i have given default as 2 so 2nd slide would be y default openend
     activeStep = signal<number>(2);
 
     toggleStep(stepNumber: number) {
-        // If clicking the already-open step, collapse it; otherwise open the clicked one
+        // if clicking the already open step collapse it otherwise open the clicked one
         this.activeStep.update(current => current === stepNumber ? 0 : stepNumber);
     }
 

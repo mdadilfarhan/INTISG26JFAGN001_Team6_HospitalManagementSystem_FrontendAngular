@@ -21,6 +21,20 @@ body {
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
+
+    .animate-fadeIn {
+      animation: fadeIn 0.2s ease-out;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 
   .scrollbar-hide::-webkit-scrollbar {
