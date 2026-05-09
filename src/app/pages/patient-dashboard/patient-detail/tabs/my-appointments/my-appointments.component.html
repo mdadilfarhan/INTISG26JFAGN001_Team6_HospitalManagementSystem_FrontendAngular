@@ -14,16 +14,16 @@
     </div>
 
     } @else if (appointments().length === 0) {
-    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-12 text-center">
+    <div class="bg-white rounded-3xl shadow-sm border border-gray-300 p-12 text-center">
         <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-5">
             <lucide-icon [img]="CalendarIcon" class="w-8 h-8 text-[#1a7fd4]"></lucide-icon>
         </div>
-        <h2 class="text-xl font-bold text-gray-900 mb-2">No Appointments Yet</h2>
+        <h2 class="text-xl font-medium text-gray-900 mb-2">No Appointments Yet</h2>
         <p class="text-gray-500 text-sm mb-6 max-w-sm mx-auto">
             You haven't booked any appointments. Schedule your first visit with our specialists.
         </p>
         <button (click)="goToBookAppointment()"
-            class="bg-light hover:bg-[#0276C9] text-white font-semibold px-6 py-3 rounded-xl shadow-md flex items-center gap-2 mx-auto transition-colors">
+            class="bg-light hover:bg-[#0276C9] text-white font-medium px-6 py-3 rounded-full shadow-md flex items-center gap-2 mx-auto transition-colors">
             <lucide-icon [img]="CalendarPlusIcon" class="w-4 h-4"></lucide-icon>
             Book an Appointment
         </button>
@@ -36,7 +36,7 @@
         <h2 class="text-lg font-bold text-gray-900 mb-4">Upcoming Appointments</h2>
         <div class="space-y-3">
             @for (appt of upcomingAppointments(); track appt.id) {
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition-shadow">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-300 p-5 hover:shadow-md transition-shadow">
                 <div class="flex items-start gap-4">
 
                     <div
@@ -85,7 +85,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
             @for (appt of pastAppointments(); track appt.id) {
             <div
-                class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+                class="bg-white rounded-2xl shadow-sm border border-gray-300 overflow-hidden hover:shadow-md transition-shadow">
 
                 <div class="p-5">
                     <div class="flex items-start gap-3">

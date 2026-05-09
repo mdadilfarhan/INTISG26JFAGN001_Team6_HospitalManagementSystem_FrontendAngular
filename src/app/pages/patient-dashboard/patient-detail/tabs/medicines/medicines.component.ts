@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LucideAngularModule, Pill, Calendar, Search, FileText, ChevronDown, ChevronUp, IndianRupee } from 'lucide-angular';
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { FormsModule } from '@angular/forms';
 import { PatientService } from '../../../../../core/services/patient.service';
 import { MedicineService } from '../../../../../core/services/medicine.service';
 import { DoctorService } from '../../../../../core/services/doctor.service';

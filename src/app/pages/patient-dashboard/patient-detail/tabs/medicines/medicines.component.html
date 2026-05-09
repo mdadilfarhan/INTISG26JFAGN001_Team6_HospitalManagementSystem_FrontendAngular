@@ -37,12 +37,12 @@
         <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-5">
             <lucide-icon [img]="PillIcon" class="w-8 h-8 text-[#1a7fd4]"></lucide-icon>
         </div>
-        <h2 class="text-xl font-bold text-gray-900 mb-2">No Medicines Yet</h2>
+        <h2 class="text-xl font-medium text-gray-900 mb-2">No Medicines Yet</h2>
         <p class="text-gray-500 text-sm mb-6 max-w-sm mx-auto">
             Once your doctor prescribes medicines after a completed appointment, they'll appear here.
         </p>
         <button (click)="goToBook()"
-            class="bg-light hover:bg-[#0276C9] text-white font-semibold px-6 py-3 rounded-xl shadow-md inline-flex items-center gap-2 transition-colors">
+            class="bg-light hover:bg-[#0276C9] text-white font-medium px-6 py-3 rounded-full shadow-md inline-flex items-center gap-2 transition-colors">
             <lucide-icon [img]="CalendarIcon" class="w-4 h-4"></lucide-icon>
             Book an Appointment
         </button>
