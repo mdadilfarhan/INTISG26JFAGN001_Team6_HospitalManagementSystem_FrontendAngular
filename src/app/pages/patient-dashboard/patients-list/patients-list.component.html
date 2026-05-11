@@ -9,14 +9,11 @@
                 <div class="inline-block border border-[#0276C9] px-3 py-1 rounded-full mb-4">
                     <p class="text-xs text-[#0276C9] font-medium">Patient Dashboard</p>
                 </div>
-                <h1 class="text-3xl font-semibold text-gray-900 leading-tight">
-                    Manage Your Patients
-                </h1>
+                <h1 class="text-3xl font-semibold text-gray-900 leading-tight">Manage Your Patients</h1>
                 <p class="text-gray-500 text-sm mt-2">
                     Add, edit, and manage profiles for yourself and your family members.
                 </p>
             </div>
-
             @if (patients().length > 0) {
             <button (click)="openAddModal()"
                 class="bg-light hover:bg-[#0276C9] text-white text-sm font-semibold px-5 py-3 rounded-full shadow-md flex items-center gap-2 transition-colors shrink-0">
@@ -26,12 +23,14 @@
             }
         </div>
 
-        <!-- Patients Loading / Error / Empty / Grid -->
+        <!-- Patients: Loading -->
         @if (isLoading()) {
         <div class="flex flex-col items-center justify-center py-24">
             <div class="w-8 h-8 border-4 border-gray-200 border-t-[#1a7fd4] rounded-full animate-spin mb-3"></div>
             <p class="text-sm text-gray-500">Loading your patients...</p>
         </div>
+
+        <!-- Patients: Error -->
         } @else if (errorMessage()) {
         <div class="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
             <p class="text-red-600 text-sm">{{ errorMessage() }}</p>
@@ -39,6 +38,8 @@
                 Try again
             </button>
         </div>
+
+        <!-- Patients: Empty -->
         } @else if (patients().length === 0) {
         <div
             class="bg-white rounded-3xl shadow-sm border border-gray-100 p-12 lg:p-16 text-center max-w-2xl mx-auto mt-8">
@@ -51,12 +52,16 @@
                 all in one place.
             </p>
             <button (click)="openAddModal()"
-                class="bg-light hover:bg-[#0276C9] text-white font-semibold px-6 py-3 rounded-ful shadow-md flex items-center gap-2 mx-auto transition-colors">
+                class="bg-light hover:bg-[#0276C9] text-white font-semibold px-6 py-3 rounded-full shadow-md flex items-center gap-2 mx-auto transition-colors">
                 <lucide-icon [img]="PlusIcon" class="w-4 h-4"></lucide-icon>
                 Add Your First Patient
             </button>
         </div>
+
+        <!-- Patients: Grid + Billing -->
         } @else {
+
+        <!-- Patient Cards Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
             @for (patient of patients(); track patient.id) {
             <div (click)="openPatientDashboard(patient)"
@@ -107,8 +112,8 @@
             }
         </div>
 
-        <!-- BILLING SECTION -->
-        <div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <!-- ── BILLING SECTION ── -->
+        <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
                 <div class="flex items-center gap-2 mb-1">
                     <lucide-icon [img]="ReceiptIcon" class="w-5 h-5 text-[#1a7fd4]"></lucide-icon>
@@ -117,7 +122,6 @@
                 <p class="text-gray-500 text-sm">View and pay invoices for all your patients.</p>
             </div>
 
-            <!-- Summary Pills -->
             @if (!invoicesLoading() && allInvoices().length > 0) {
             <div class="flex items-center gap-2">
                 @if (pendingInvoices().length > 0) {
@@ -139,11 +143,10 @@
         </div>
 
         <!-- Tab Toggle -->
-        <div class="bg-gray-100 p-1 rounded-full inline-flex mb-6">
+        <div class="bg-gray-100 p-1 rounded-full inline-flex mb-8">
             <button (click)="billingTab.set('pending')"
-                class="px-5 py-2 text-sm font-semibold rounded-full transition-all" [class]="billingTab() === 'pending'
-            ? 'bg-white shadow-sm text-gray-900'
-            : 'text-gray-500 hover:text-gray-700'">
+                class="px-5 py-2 text-sm font-semibold rounded-full transition-all"
+                [class]="billingTab() === 'pending' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'">
                 Pending Bills
                 @if (pendingInvoices().length > 0) {
                 <span class="ml-1.5 bg-yellow-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
@@ -152,14 +155,12 @@
                 }
             </button>
             <button (click)="billingTab.set('paid')" class="px-5 py-2 text-sm font-semibold rounded-full transition-all"
-                [class]="billingTab() === 'paid'
-            ? 'bg-white shadow-sm text-gray-900'
-            : 'text-gray-500 hover:text-gray-700'">
+                [class]="billingTab() === 'paid' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'">
                 Paid Bills
             </button>
         </div>
 
-        <!-- Invoices Loading -->
+        <!-- Invoices: Loading -->
         @if (invoicesLoading()) {
         <div class="bg-white rounded-2xl border border-gray-100 flex flex-col items-center justify-center py-16">
             <div class="w-7 h-7 border-4 border-gray-200 border-t-[#1a7fd4] rounded-full animate-spin mb-3"></div>
@@ -177,61 +178,98 @@
             <p class="text-gray-500 text-sm">No pending bills. You're all caught up.</p>
         </div>
         } @else {
-        <div class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             @for (invoice of pendingInvoices(); track invoice.id) {
-            <div class="bg-white rounded-2xl border border-yellow-200 shadow-sm hover:shadow-md transition-shadow">
-                <div class="p-5">
-                    <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+            <div
+                class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col">
 
-                        <div class="w-12 h-12 rounded-xl bg-yellow-100 flex items-center justify-center shrink-0">
-                            <lucide-icon [img]="ReceiptIcon" class="w-6 h-6 text-yellow-600"></lucide-icon>
+                <!-- Status color bar -->
+                <div class="h-1.5 w-full"
+                    [class]="invoice.invoiceStatus === InvoiceStatus.READY ? 'bg-[#1a7fd4]' : 'bg-yellow-400'">
+                </div>
+
+                <div class="p-5 flex flex-col flex-1">
+
+                    <!-- Invoice Number + Status Badge -->
+                    <div class="flex items-start justify-between gap-2 mb-4">
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Invoice</p>
+                            <p class="font-black text-gray-900 text-base leading-tight">{{ invoice.invoiceNumber }}</p>
+                            <p class="text-[11px] text-gray-400 mt-0.5">{{ formatDate(invoice.createdAt) }}</p>
                         </div>
-
-                        <div class="flex-1 min-w-0">
-                            <div class="flex flex-wrap items-center gap-2 mb-1">
-                                <h3 class="font-bold text-gray-900 text-base">{{ invoice.invoiceNumber }}</h3>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full"
-                                    [class]="getStatusStyle(invoice.invoiceStatus).bg + ' ' + getStatusStyle(invoice.invoiceStatus).text">
-                                    {{ getStatusStyle(invoice.invoiceStatus).label }}
-                                </span>
-                            </div>
-                            <p class="text-xs text-gray-500 mb-2">
-                                {{ getPatientName(invoice.patientId) }}
-                                @if (invoice.doctor) { • {{ invoice.doctor.fullName }} }
-                                • {{ formatDate(invoice.createdAt) }}
-                            </p>
-                            <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
-                                <span>Consultation: <span class="font-semibold text-gray-700">₹{{
-                                        formatAmount(invoice.consultationFee) }}</span></span>
-                                @if (invoice.medicineFee > 0) {
-                                <span>Medicines: <span class="font-semibold text-gray-700">₹{{
-                                        formatAmount(invoice.medicineFee) }}</span></span>
-                                }
-                                @if (invoice.labFee > 0) {
-                                <span>Lab: <span class="font-semibold text-gray-700">₹{{ formatAmount(invoice.labFee)
-                                        }}</span></span>
-                                }
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col sm:items-end gap-2 shrink-0">
-                            <p class="text-2xl font-bold text-gray-900">₹{{ formatAmount(invoice.totalAmount) }}</p>
-                            <div class="flex items-center gap-2">
-                                <button (click)="openInvoice(invoice, $event)"
-                                    class="text-xs font-semibold text-gray-600 hover:text-[#1a7fd4] border border-gray-300 hover:border-[#1a7fd4] px-3 py-1.5 rounded-lg transition-colors">
-                                    View Invoice
-                                </button>
-                                @if (invoice.invoiceStatus === InvoiceStatus.PENDING || invoice.invoiceStatus ===
-                                InvoiceStatus.READY) {
-                                <button (click)="openInvoice(invoice, $event)"
-                                    class="text-xs font-bold text-white bg-light hover:bg-[#0276C9] px-4 py-1.5 rounded-lg transition-colors">
-                                    Pay Now
-                                </button>
-                                }
-                            </div>
-                        </div>
-
+                        @if (invoice.invoiceStatus === InvoiceStatus.READY) {
+                        <span
+                            class="inline-flex items-center gap-1 bg-blue-100 text-[#1a7fd4] text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#1a7fd4] animate-pulse"></span>
+                            READY
+                        </span>
+                        } @else {
+                        <span
+                            class="inline-flex items-center gap-1 bg-yellow-100 text-yellow-700 text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0">
+                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse"></span>
+                            PENDING
+                        </span>
+                        }
                     </div>
+
+                    <!-- Patient + Doctor block -->
+                    <div class="grid grid-cols-2 gap-3 mb-4 p-3 bg-gray-50 rounded-xl">
+                        <div class="min-w-0">
+                            <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Patient</p>
+                            <p class="text-xs font-bold text-gray-900 truncate">{{ getPatientName(invoice.patientId) }}
+                            </p>
+                        </div>
+                        @if (invoice.doctor) {
+                        <div class="min-w-0">
+                            <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Doctor</p>
+                            <p class="text-xs font-bold text-gray-900 truncate">{{ invoice.doctor.fullName }}</p>
+                            <p class="text-[10px] text-[#1a7fd4] font-medium truncate">{{ invoice.doctor.specialty }}
+                            </p>
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Fee Breakdown -->
+                    <div class="space-y-1.5 mb-5">
+                        <div class="flex items-center justify-between text-xs text-gray-500">
+                            <span>Consultation</span>
+                            <span class="font-medium text-gray-700">₹{{ formatAmount(invoice.consultationFee) }}</span>
+                        </div>
+                        @if ((invoice.medicineFee ?? 0) > 0) {
+                        <div class="flex items-center justify-between text-xs text-gray-500">
+                            <span>Medicines</span>
+                            <span class="font-medium text-gray-700">₹{{ formatAmount(invoice.medicineFee) }}</span>
+                        </div>
+                        }
+                        @if ((invoice.labFee ?? 0) > 0) {
+                        <div class="flex items-center justify-between text-xs text-gray-500">
+                            <span>Lab Tests</span>
+                            <span class="font-medium text-gray-700">₹{{ formatAmount(invoice.labFee) }}</span>
+                        </div>
+                        }
+                        <div class="flex items-center justify-between pt-2 border-t border-dashed border-gray-200">
+                            <span class="text-sm font-bold text-gray-900">Total</span>
+                            <span class="text-xl font-black text-gray-900">₹{{ formatAmount(invoice.totalAmount)
+                                }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex items-center gap-2 mt-auto">
+                        <button (click)="openInvoice(invoice, $event)"
+                            class="flex-1 text-xs font-semibold text-gray-600 hover:text-[#1a7fd4] border border-gray-200 hover:border-[#1a7fd4] px-3 py-2 rounded-xl transition-colors text-center">
+                            View Invoice
+                        </button>
+                        @if (invoice.invoiceStatus === InvoiceStatus.PENDING || invoice.invoiceStatus ===
+                        InvoiceStatus.READY) {
+                        <button (click)="openInvoice(invoice, $event)"
+                            class="flex-1 text-xs font-bold text-white bg-light hover:bg-[#0276C9] px-3 py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5">
+                            Pay Now
+                            <lucide-icon [img]="ArrowRightIcon" class="w-3.5 h-3.5"></lucide-icon>
+                        </button>
+                        }
+                    </div>
+
                 </div>
             </div>
             }
@@ -249,49 +287,89 @@
             <p class="text-gray-500 text-sm">Paid invoices will appear here.</p>
         </div>
         } @else {
-        <div class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             @for (invoice of paidInvoices(); track invoice.id) {
-            <div class="bg-white rounded-2xl border border-green-100 shadow-sm hover:shadow-md transition-shadow">
-                <div class="p-5">
-                    <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+            <div
+                class="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col">
 
-                        <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center shrink-0">
-                            <lucide-icon [img]="PaidIcon" class="w-6 h-6 text-green-600"></lucide-icon>
-                        </div>
 
-                        <div class="flex-1 min-w-0">
-                            <div class="flex flex-wrap items-center gap-2 mb-1">
-                                <h3 class="font-bold text-gray-900 text-base">{{ invoice.invoiceNumber }}</h3>
-                                <span
-                                    class="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">
-                                    Paid
-                                </span>
-                            </div>
-                            <p class="text-xs text-gray-500 mb-2">
-                                {{ getPatientName(invoice.patientId) }}
-                                @if (invoice.doctor) { • {{ invoice.doctor.fullName }} }
-                                • {{ formatDate(invoice.createdAt) }}
+                <div class="p-5 flex flex-col flex-1">
+
+                    <!-- Invoice Number + Paid Badge -->
+                    <div class="flex items-start justify-between gap-2 mb-4">
+                        <div>
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Invoice</p>
+                            <p class="font-semibold text-gray-900 text-base leading-tight">{{ invoice.invoiceNumber }}
                             </p>
-                            @if (invoice.payment) {
-                            <p class="text-xs text-gray-500">
-                                Paid via <span class="font-semibold text-gray-700">{{ invoice.payment.paymentMethod
-                                    }}</span>
-                                @if (invoice.payment.transactionId) {
-                                • TXN: {{ invoice.payment.transactionId }}
-                                }
-                            </p>
-                            }
+                            <p class="text-[11px] text-gray-400 mt-0.5">{{ formatDate(invoice.createdAt) }}</p>
                         </div>
-
-                        <div class="flex flex-col sm:items-end gap-2 shrink-0">
-                            <p class="text-2xl font-bold text-green-600">₹{{ formatAmount(invoice.totalAmount) }}</p>
-                            <button (click)="openInvoice(invoice, $event)"
-                                class="text-xs font-semibold text-gray-600 hover:text-[#1a7fd4] border border-gray-300 hover:border-[#1a7fd4] px-3 py-1.5 rounded-lg transition-colors">
-                                View Receipt
-                            </button>
-                        </div>
-
+                        <span
+                            class="inline-flex items-center gap-1 bg-green-100 text-green-700 text-[10px] font-bold px-2.5 py-1 rounded-full shrink-0">
+                            <lucide-icon [img]="PaidIcon" class="w-3 h-3"></lucide-icon>
+                            PAID
+                        </span>
                     </div>
+
+                    <!-- Patient + Doctor block -->
+                    <div class="grid grid-cols-2 gap-3 mb-4 p-3 bg-gray-50 rounded-xl">
+                        <div class="min-w-0">
+                            <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Patient</p>
+                            <p class="text-xs font-semibold text-gray-900 truncate">{{ getPatientName(invoice.patientId)
+                                }}
+                            </p>
+                        </div>
+                        @if (invoice.doctor) {
+                        <div class="min-w-0">
+                            <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Doctor</p>
+                            <p class="text-xs font-semibold text-gray-900 truncate">{{ invoice.doctor.fullName }}</p>
+                            <p class="text-[10px] text-[#1a7fd4] font-medium truncate">{{ invoice.doctor.specialty }}
+                            </p>
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Fee Breakdown -->
+                    <div class="space-y-1.5 mb-4">
+                        <div class="flex items-center justify-between text-xs text-gray-500">
+                            <span>Consultation</span>
+                            <span class="font-medium text-gray-700">₹{{ formatAmount(invoice.consultationFee) }}</span>
+                        </div>
+                        @if ((invoice.medicineFee ?? 0) > 0) {
+                        <div class="flex items-center justify-between text-xs text-gray-500">
+                            <span>Medicines</span>
+                            <span class="font-medium text-gray-700">₹{{ formatAmount(invoice.medicineFee) }}</span>
+                        </div>
+                        }
+                        @if ((invoice.labFee ?? 0) > 0) {
+                        <div class="flex items-center justify-between text-xs text-gray-500">
+                            <span>Lab Tests</span>
+                            <span class="font-medium text-gray-700">₹{{ formatAmount(invoice.labFee) }}</span>
+                        </div>
+                        }
+                        <div class="flex items-center justify-between pt-2 border-t border-dashed border-gray-200">
+                            <span class="text-sm font-bold text-gray-900">Total Paid</span>
+                            <span class="text-xl font-black text-green-600">₹{{ formatAmount(invoice.totalAmount)
+                                }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Payment method strip -->
+                    @if (invoice.payment) {
+                    <div
+                        class="bg-green-50 border border-green-100 rounded-lg px-3 py-2 mb-4 flex items-center justify-between">
+                        <span class="text-[11px] text-gray-500">Paid via</span>
+                        <span class="text-[11px] font-bold text-green-700">{{ invoice.payment.paymentMethod }}</span>
+                    </div>
+                    }
+
+                    <!-- Action -->
+                    <div class="mt-auto">
+                        <button (click)="openInvoice(invoice, $event)"
+                            class="w-full text-xs font-semibold text-gray-600 hover:text-[#1a7fd4] border border-gray-200 hover:border-[#1a7fd4] px-3 py-2 rounded-xl transition-colors text-center">
+                            View Receipt
+                        </button>
+                    </div>
+
                 </div>
             </div>
             }
@@ -310,5 +388,6 @@
 }
 
 @if (selectedInvoice()) {
-<app-invoice-modal [invoice]="selectedInvoice()!" (closed)="closeInvoice()" (paymentCompleted)="onPaymentCompleted()" />
+<app-invoice-modal [invoice]="selectedInvoice()!" (closed)="closeInvoice()"
+    (paymentCompleted)="onPaymentCompleted($event)" />
 }

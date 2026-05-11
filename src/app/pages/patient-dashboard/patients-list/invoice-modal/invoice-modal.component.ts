@@ -15,7 +15,7 @@ type ModalStep = 'invoice' | 'payment-method' | 'success';
 export class InvoiceModalComponent {
     @Input() invoice!: InvoiceDTO;
     @Output() closed = new EventEmitter<void>();
-    @Output() paymentCompleted = new EventEmitter<void>();
+    @Output() paymentCompleted = new EventEmitter<number>();
 
     readonly XIcon = X;
     readonly PrinterIcon = Printer;
@@ -112,7 +112,7 @@ export class InvoiceModalComponent {
     }
 
     onPaymentSuccess() {
-        this.paymentCompleted.emit();
+        this.paymentCompleted.emit(this.invoice.id);
         this.closed.emit();
     }
 

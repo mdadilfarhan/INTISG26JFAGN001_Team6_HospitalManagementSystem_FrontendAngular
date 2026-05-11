@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { LucideAngularModule, Plus, Pencil, ArrowRight, Users, Phone, Cake, Droplet, Receipt, Clock, CheckCircle, AlertCircle } from 'lucide-angular';
+import {
+    LucideAngularModule,
+    Plus, Pencil, ArrowRight, Users, Phone, Cake, Droplet,
+    Receipt, Clock, CheckCircle, AlertCircle
+} from 'lucide-angular';
 import { NavbarComponent } from '../../../components/navbar/navbar.component';
 import { FooterComponent } from '../../../components/footer/footer.component';
 import { PatientFormModalComponent } from './patient-form-modal/patient-form-modal.component';
@@ -155,23 +159,26 @@ export class PatientsListComponent implements OnInit {
         this.selectedInvoice.set(null);
     }
 
-    onPaymentCompleted() {
+    onPaymentCompleted(invoiceId: number) {
+        // Instantly update local state — move invoice to paid
+        this.allInvoices.update(list =>
+            list.map(inv =>
+                inv.id === invoiceId
+                    ? { ...inv, invoiceStatus: InvoiceStatus.PAID }
+                    : inv
+            )
+        );
         this.closeInvoice();
-        const patients = this.patients();
-        if (patients.length > 0) this.loadAllInvoices(patients);
+
+        // Refetch in background after short delay for fresh data
+        setTimeout(() => {
+            const patients = this.patients();
+            if (patients.length > 0) this.loadAllInvoices(patients);
+        }, 1000);
     }
 
     getPatientName(patientId: number): string {
         return this.patients().find(p => p.id === patientId)?.fullName ?? 'Patient';
-    }
-
-    getStatusStyle(status: InvoiceStatus): { bg: string; text: string; label: string } {
-        switch (status) {
-            case InvoiceStatus.PAID: return { bg: 'bg-green-100', text: 'text-green-700', label: 'Paid' };
-            case InvoiceStatus.READY: return { bg: 'bg-blue-100', text: 'text-[#1a7fd4]', label: 'Ready to Pay' };
-            case InvoiceStatus.CANCELLED: return { bg: 'bg-red-100', text: 'text-red-600', label: 'Cancelled' };
-            default: return { bg: 'bg-yellow-100', text: 'text-yellow-700', label: 'Pending' };
-        }
     }
 
     formatDate(dateStr: string): string {
