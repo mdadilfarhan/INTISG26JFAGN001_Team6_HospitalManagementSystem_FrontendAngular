@@ -20,6 +20,13 @@ export const routes: Routes = [
     canActivate: [authGuard, roleGuard],
     data: { roles: ['ADMIN'] }
   },
+  {
+    path: 'lab-dashboard',
+    loadComponent: () =>
+      import('./lab/lab.component').then(m => m.LabComponent),
+    canActivate: [authGuard, roleGuard],
+    data: { roles: ['LAB_TECHNICIAN'] }
+  },
   // Doctor dashboard — only DOCTOR allowed
   // {
   //   path: 'doctor-dashboard',
