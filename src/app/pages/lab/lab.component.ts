@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LabService } from '../core/services/lab.service';
-import { AuthService } from '../core/services/auth.service';
+import { LabService } from '../../core/services/lab.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-lab',
@@ -32,7 +32,6 @@ export class LabComponent implements OnInit {
   showNotifPanel = false;
   unreadCount = 0;
   notifications: { id: number; title: string; message: string; type: string; read: boolean; time: Date }[] = [];
-  // workflow actions occur (collect, start, complete). See pushNotif() below.
 
   // User
   currentUser = '';
@@ -55,6 +54,16 @@ export class LabComponent implements OnInit {
       next: (data) => { this.tests = data; this.isLoading = false; },
       error: () => { this.error = 'Failed to load tests'; this.isLoading = false; }
     });
+  }
+
+  // ── Search ──────────────────────────────────
+  // Called on every keystroke. Auto-switches to queue view so results are visible.
+  onSearch(query: string) {
+    this.searchQuery = query;
+    if (query.trim()) {
+      this.currentView = 'queue';
+      this.activeFilter = 'all';
+    }
   }
 
   // ── Navigation ──────────────────────────────
@@ -81,15 +90,29 @@ export class LabComponent implements OnInit {
       ? [...this.tests]
       : this.tests.filter(t => t.status === this.activeFilter);
 
-    if (this.searchQuery) {
-      const q = this.searchQuery.toLowerCase();
+    const q = this.searchQuery.trim().toLowerCase();
+    if (q) {
       list = list.filter(t =>
         t.testName?.toLowerCase().includes(q) ||
         t.patientId?.toString().includes(q) ||
-        t.id?.toString().includes(q)
+        t.id?.toString().includes(q) ||
+        t.testCode?.toLowerCase().includes(q) ||
+        t.assignedTo?.toLowerCase().includes(q)
       );
     }
     return list;
+  }
+
+  // Dashboard recent activity — also respects search query
+  dashboardTests() {
+    const q = this.searchQuery.trim().toLowerCase();
+    if (!q) return this.tests.slice(0, 5);
+    return this.tests.filter(t =>
+      t.testName?.toLowerCase().includes(q) ||
+      t.patientId?.toString().includes(q) ||
+      t.id?.toString().includes(q) ||
+      t.testCode?.toLowerCase().includes(q)
+    ).slice(0, 5);
   }
 
   getByStatus(status: string) {
@@ -169,7 +192,7 @@ export class LabComponent implements OnInit {
   }
 
   userInitials(): string {
-    return this.currentUser.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+    return this.currentUser.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
   }
 
   // ── Auth ─────────────────────────────────────

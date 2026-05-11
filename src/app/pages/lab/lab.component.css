@@ -48,11 +48,13 @@
   border-right:1px solid rgba(255,255,255,.7);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 4px 0 24px rgba(37,99,200,.06);
 }
-.sb-logo { display:flex;align-items:center;gap:11px;padding:26px 20px 22px;border-bottom:1px solid rgba(255,255,255,.55); }
-.sb-logo-icon { width:40px;height:40px;border-radius:12px;flex-shrink:0;background:linear-gradient(135deg,#1d55b0,#3b82f6);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(37,99,200,.35); }
-.sb-logo-icon svg { width:22px;height:22px;fill:#fff; }
-.sb-logo-text { font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:#0a1628;letter-spacing:-.3px; }
-.sb-logo-text span { color:#2563c8; }
+.logo-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 60px; /* adjust between 4px–10px to taste */
+}
 
 .sb-nav { flex:1;padding:18px 12px;overflow-y:auto;display:flex;flex-direction:column;gap:2px; }
 .sb-nav::-webkit-scrollbar { width:3px; }
@@ -97,8 +99,8 @@
   padding:16px 28px 12px;
   display:flex;align-items:center;justify-content:space-between;gap:24px;
 }
-.pg-eyebrow { font-size:11px;color:#7a9ac0;text-transform:uppercase;font-weight:700;letter-spacing:.07em;margin-bottom:2px; }
-.pg-title { font-family:'Sora',sans-serif;font-size:21px;font-weight:800;color:#0a1628;margin:0;letter-spacing:-.4px; }
+.pg-eyebrow { font-size:11px;color:#7a9ac0;text-transform:uppercase;font-weight:700;letter-spacing:.07em;margin-bottom:20px; }
+.pg-title { font-family:'Sora',sans-serif;font-size:21px;font-weight:800;color:#0a1628;margin-bottom:20px;letter-spacing:-.4px; }
 .pg-title span { color:var(--primary); }
 
 .header-right { display:flex;align-items:center;gap:14px; }
@@ -119,7 +121,7 @@
 /* ══════════════════════════
    STAT CARDS
 ══════════════════════════ */
-.stats-row { display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px; }
+.stats-row { display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px; }
 .stat-card {
   background:var(--glass);backdrop-filter:blur(20px);
   border:1px solid var(--border);border-radius:16px;
@@ -147,7 +149,7 @@
 /* Progress banner */
 .progress-banner {
   background:var(--glass);backdrop-filter:blur(20px);border:1px solid var(--border);
-  border-radius:12px;padding:12px 18px;margin-bottom:14px;
+  border-radius:12px;padding:12px 18px;margin-bottom:20px;
 }
 .pb-label { display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:#2d4a7a;margin-bottom:8px; }
 .pb-label strong { color:#0a1628;font-size:13px;font-family:'Sora',sans-serif; }
