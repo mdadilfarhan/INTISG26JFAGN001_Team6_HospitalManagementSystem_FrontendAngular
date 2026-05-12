@@ -64,7 +64,7 @@
 .sb-logo {
   display: flex;
   align-items: center;
-  padding: 24px 24px 18px;
+  padding: 30px 24px 18px;
   border-bottom: 1px solid rgba(255,255,255,.5);
   min-height: 70px;
   overflow: hidden;

@@ -5,17 +5,14 @@
 <div class="bg-orb bg-orb-3"></div>
 <div class="bg-grid"></div>
 
-<!-- App layout -->
 <div class="relative z-10 flex h-screen overflow-hidden">
 
   <app-sidebar [unreadCount]="unreadCount" [activeRoute]="'user-management'" (notifClicked)="openNotifModal()"
     (logoutClicked)="logout()">
   </app-sidebar>
 
-  <!-- ═══════════ MAIN ═══════════ -->
   <main class="flex flex-col flex-1 overflow-hidden min-w-0">
 
-    <!-- Header -->
     <div class="flex items-start justify-between gap-4 px-8 pt-6 pb-0">
       <div>
         <div class="text-[11px] font-semibold text-[#6b8ab5] tracking-[.07em] uppercase mb-1">
@@ -58,10 +55,8 @@
       </div>
     </div>
 
-    <!-- Scrollable content -->
     <div class="flex-1 overflow-y-auto px-8 py-5 pb-8 scrollbar-thin">
 
-      <!-- Stat cards -->
       <div class="grid grid-cols-4 gap-3.5 mb-5 max-[1200px]:grid-cols-2 max-[900px]:grid-cols-2">
         <div
           class="stat-card flex flex-col gap-2.5 p-5 rounded-[18px] border border-white/88 transition-all duration-200 hover:-translate-y-0.5">
@@ -120,7 +115,6 @@
         </div>
       </div>
 
-      <!-- Find User panel -->
       <div class="glass-panel rounded-[18px] p-5 mb-5">
         <div class="font-display text-[14px] font-semibold text-navy-900 mb-3">Find User</div>
         <div class="grid grid-cols-2 gap-2.5 mb-2.5 max-[700px]:grid-cols-1">
@@ -168,7 +162,6 @@
         </div>
       </div>
 
-      <!-- Table section header -->
       <div class="flex items-center justify-between mb-3.5">
         <span class="font-display text-[15px] font-bold text-navy-900">All Users</span>
         <div class="flex items-center gap-2">
@@ -188,13 +181,11 @@
         </div>
       </div>
 
-      <!-- Loading -->
       <div *ngIf="isLoadingUsers" class="flex items-center gap-2.5 p-5 text-[13px] text-[#6b8ab5]">
         <span class="spin-blue"></span>
         <span>Loading users…</span>
       </div>
 
-      <!-- Table -->
       <div *ngIf="!isLoadingUsers" class="table-wrap rounded-[18px] overflow-x-auto mb-5">
         <table class="w-full border-collapse min-w-[700px]">
           <thead>
@@ -288,7 +279,6 @@
         </div>
       </div>
 
-      <!-- Recent Notifications -->
       <div>
         <div class="flex items-center justify-between mb-3.5">
           <span class="font-display text-[15px] font-bold text-navy-900">Recent Notifications</span>
@@ -327,7 +317,6 @@
   </main>
 </div>
 
-<!-- ═══════ ADD USER MODAL — Reactive Form ═══════ -->
 <div class="modal-bg" [class.show]="showAddModal" (click)="closeModal('add')">
   <div class="modal" (click)="$event.stopPropagation()" [formGroup]="addUserForm">
     <button
@@ -342,13 +331,11 @@
     <div class="font-display text-[18px] font-bold text-navy-900 mb-1">Add New User</div>
     <div class="text-[13px] text-[#6b8ab5] mb-5">Create a new hospital staff account</div>
 
-    <!-- API error -->
     <div *ngIf="addError"
       class="px-3.5 py-2.5 rounded-[10px] text-[13px] font-medium mb-3.5 bg-red-600/[.09] text-red-600 border border-red-600/20">
       {{ addError }}
     </div>
 
-    <!-- Full Name -->
     <div class="mb-3">
       <label class="block text-[11px] font-semibold text-[#2d4a7a] tracking-[.05em] uppercase mb-1.5">Full Name</label>
       <input type="text" placeholder="Dr. John Smith" formControlName="fullName"
@@ -357,7 +344,6 @@
       <span class="field-error" *ngIf="addFieldError('fullName')">{{ addFieldError('fullName') }}</span>
     </div>
 
-    <!-- Username + Password row -->
     <div class="grid grid-cols-2 gap-3 mb-3">
       <div>
         <label class="block text-[11px] font-semibold text-[#2d4a7a] tracking-[.05em] uppercase mb-1.5">Username</label>
@@ -388,7 +374,6 @@
       </div>
     </div>
 
-    <!-- Confirm Password -->
     <div class="mb-3">
       <label class="block text-[11px] font-semibold text-[#2d4a7a] tracking-[.05em] uppercase mb-1.5">Confirm
         Password</label>
@@ -398,7 +383,6 @@
       <span class="field-error" *ngIf="addPasswordMismatch">Passwords do not match.</span>
     </div>
 
-    <!-- Role -->
     <div class="mb-3.5">
       <label class="block text-[11px] font-semibold text-[#2d4a7a] tracking-[.05em] uppercase mb-1.5">Role</label>
       <div class="flex gap-1.5 flex-wrap">
@@ -413,7 +397,6 @@
       </div>
     </div>
 
-    <!-- Actions -->
     <div class="flex gap-2.5 mt-4">
       <button class="glass-btn flex-1 justify-center py-3 rounded-[10px] text-[13px] font-semibold"
         (click)="closeModal('add')">Cancel</button>
@@ -427,7 +410,6 @@
   </div>
 </div>
 
-<!-- ═══════ VIEW USER MODAL ═══════ -->
 <div class="modal-bg" [class.show]="showViewModal" (click)="closeModal('view')">
   <div class="modal" (click)="$event.stopPropagation()" *ngIf="selectedUser">
     <button
@@ -482,7 +464,6 @@
   </div>
 </div>
 
-<!-- ═══════ DELETE MODAL ═══════ -->
 <div class="modal-bg" [class.show]="showDeleteModal" (click)="closeModal('delete')">
   <div class="modal max-w-[380px] text-center" (click)="$event.stopPropagation()">
     <div
@@ -508,7 +489,7 @@
   </div>
 </div>
 
-<!-- ═══════ NOTIFICATIONS MODAL ═══════ -->
+
 <div class="modal-bg" [class.show]="showNotifModal" (click)="closeModal('notif')">
   <div class="modal" (click)="$event.stopPropagation()">
     <button
@@ -543,7 +524,6 @@
   </div>
 </div>
 
-<!-- Toast -->
 <div *ngIf="showToast"
   class="fixed bottom-6 right-6 z-[400] bg-white/88 border border-white/95 rounded-2xl backdrop-blur-xl shadow-[0_8px_28px_rgba(37,99,200,.15)] px-5 py-3.5 flex items-center gap-2.5 min-w-[240px] toast-anim">
   <div class="w-2 h-2 rounded-full flex-shrink-0"

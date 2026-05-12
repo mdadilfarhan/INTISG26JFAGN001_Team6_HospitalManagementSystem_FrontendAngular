@@ -13,7 +13,6 @@ import {
 } from '../../core/models/index';
 import { SidebarComponent } from '../../components/sidebar/sidebar';
 
-// ── Custom validator — password match ──
 export function passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
   const password        = group.get('password')?.value;
   const confirmPassword = group.get('confirmPassword')?.value;
@@ -55,18 +54,15 @@ export class DashboardComponent implements OnInit {
   toastType: 'ok' | 'err' | 'info' = 'info';
   showToast           = false;
 
-  // ── Add User form ──
   addUserForm!: FormGroup;
   selectedRole: RoleName = RoleName.DOCTOR;
   addError = '';
 
-  // ── Find User ──
   searchById          = '';
   searchByUsername    = '';
   searchResult: UserResponse | null = null;
   searchError         = '';
 
-  // ── Password visibility ──
   showAddPassword        = false;
   showAddConfirmPassword = false;
 
@@ -93,7 +89,6 @@ export class DashboardComponent implements OnInit {
     this.loadNotifications();
   }
 
-  // ── Build Add User form ──
   private buildAddUserForm() {
     this.addUserForm = this.fb.group({
       fullName:        ['', [Validators.required, Validators.minLength(2)]],
@@ -103,7 +98,6 @@ export class DashboardComponent implements OnInit {
     }, { validators: passwordMatchValidator });
   }
 
-  // ── Accessors ──
   get af() { return this.addUserForm.controls; }
 
   addFieldError(field: string): string {
@@ -119,7 +113,6 @@ export class DashboardComponent implements OnInit {
            !!this.addUserForm.get('confirmPassword')?.touched;
   }
 
-  // ── Open Add Modal ──
   openAddModal() {
     this.addUserForm.reset();
     this.selectedRole = RoleName.DOCTOR;
@@ -133,7 +126,6 @@ export class DashboardComponent implements OnInit {
     this.selectedRole = role;
   }
 
-  // ── Submit Add User ──
   submitAddUser() {
     this.addError = '';
     this.addUserForm.markAllAsTouched();
@@ -162,7 +154,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // ── Load Users ──
   loadUsers() {
     this.isLoadingUsers = true;
     this.userService.getAllUsers().subscribe({
@@ -179,7 +170,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // ── Load Notifications ──
   loadNotifications() {
     this.isLoadingNotifs = true;
     this.notificationService.getAllNotifications(this.currentUserId).subscribe({
@@ -344,3 +334,4 @@ export class DashboardComponent implements OnInit {
 
   getRolesList(roles: RoleName[]): string { return roles.join(', '); }
 }
+

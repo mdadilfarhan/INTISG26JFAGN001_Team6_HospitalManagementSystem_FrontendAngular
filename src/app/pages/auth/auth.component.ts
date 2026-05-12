@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { LoginRequest, RegisterRequest } from '../../core/models/index';
 
-// ── Custom validator — password match ──
 export function passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
   const password        = group.get('password')?.value;
   const confirmPassword = group.get('confirmPassword')?.value;
@@ -23,18 +22,15 @@ export class AuthComponent implements OnInit {
 
   activeTab = signal<'login' | 'signup'>('login');
 
-  // ── Forms ──
   loginForm!: FormGroup;
   signupForm!: FormGroup;
 
-  // ── UI state ──
   isLoading     = false;
   errorMessage  = '';
   successMessage = '';
   showLoginPassword  = false;   // ← add back
   showSignupPassword = false;   // ← add back
 
-  // ── Methods ──
   toggleLoginPassword()  { this.showLoginPassword  = !this.showLoginPassword;  }
   toggleSignupPassword() { this.showSignupPassword = !this.showSignupPassword; }
 
@@ -53,13 +49,11 @@ export class AuthComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // ── Build login form ──
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
-    // ── Build signup form ──
     this.signupForm = this.fb.group({
       fullName:        ['', [Validators.required, Validators.minLength(2)]],
       username:        ['', [Validators.required, Validators.minLength(3)]],
@@ -67,13 +61,11 @@ export class AuthComponent implements OnInit {
       confirmPassword: ['',  Validators.required]
     }, { validators: passwordMatchValidator });
 
-    // ── Already logged in → redirect ──
     if (this.authService.isLoggedIn()) {
       this.redirectByRole(this.authService.getRole());
     }
   }
 
-  // ── Tab switching ──
   switchTab(tab: 'login' | 'signup') {
     this.activeTab.set(tab);
     this.errorMessage  = '';
@@ -86,11 +78,9 @@ export class AuthComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  // ── Quick control accessors for template ──
   get lf() { return this.loginForm.controls; }
   get sf() { return this.signupForm.controls; }
 
-  // ── Per-field error messages ──
   loginFieldError(field: string): string {
     const c = this.loginForm.get(field);
     if (!c || !c.touched || !c.errors) return '';
@@ -112,7 +102,6 @@ export class AuthComponent implements OnInit {
            !!this.signupForm.get('confirmPassword')?.touched;
   }
 
-  // ── Login ──
   onLogin() {
     this.errorMessage  = '';
     this.successMessage = '';
@@ -138,7 +127,6 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  // ── Register ──
   onRegister() {
     this.errorMessage  = '';
     this.successMessage = '';
@@ -166,7 +154,6 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  // ── Role redirect ──
   private redirectByRole(role: string | null) {
     if (!role) {
       this.errorMessage = 'Unable to determine user role.';
