@@ -222,13 +222,13 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(4)]],
+      username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
 
     this.signupForm = this.fb.group({
       fullName:        ['', [Validators.required, Validators.minLength(4)]],
-      username:        ['', [Validators.required, Validators.minLength(4)]],
+      username:        ['', [Validators.required, Validators.email]],
       password:        ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['',  Validators.required]
     }, { validators: passwordMatchValidator });
