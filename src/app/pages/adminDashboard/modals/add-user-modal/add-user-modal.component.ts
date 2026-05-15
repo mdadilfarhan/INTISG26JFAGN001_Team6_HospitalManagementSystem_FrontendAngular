@@ -73,6 +73,8 @@ export class AddUserModalComponent implements OnInit {
 
   close() {
     this.addUserForm.reset();
+    this.addUserForm.markAsUntouched();
+    this.addUserForm.markAsPristine();
     this.selectedRole    = RoleName.DOCTOR;
     this.showAddPassword = false;
     this.closed.emit();

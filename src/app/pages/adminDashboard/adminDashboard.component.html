@@ -138,7 +138,7 @@
         (filterChanged)="setFilter($event)"
         (viewUser)="viewUser($event)"
         (deleteUser)="openDeleteModal($event)"
-        (addUserClicked)="showAddModal = true" />
+        (addUserClicked)="openAddModal()" />
 
       <app-notifications-list
         [notifications]="notifications()"
@@ -185,7 +185,7 @@
   [show]="showViewModal"
   [selectedUser]="selectedUser"
   (closed)="showViewModal = false"
-  (deleteRequested)="showViewModal = false; openDeleteModal($event)" />
+  (deleteRequested)="openDeleteModal($event)" />
 
 <app-notif-modal
   [show]="showNotifModal"

@@ -152,8 +152,14 @@ export class DashboardComponent implements OnInit {
   }
 
   openDeleteModal(user: UserResponse) {
+    this.showViewModal   = false;
     this.selectedUser    = user;
     this.showDeleteModal = true;
+  }
+
+  openAddModal() {
+    this.addError     = '';
+    this.showAddModal = true;
   }
 
   confirmDelete() {
@@ -202,6 +208,9 @@ export class DashboardComponent implements OnInit {
         const list = this.notifications().map(n => n.id === updated.id ? updated : n);
         this.notifications.set(list);
         this.unreadCount = list.filter(n => !n.read).length;
+      },
+      error: () => {
+        this.toast('Failed to mark notification as read', 'err');
       }
     });
   }
@@ -212,6 +221,9 @@ export class DashboardComponent implements OnInit {
         this.notifications.set(this.notifications().map(n => ({ ...n, read: true })));
         this.unreadCount = 0;
         this.toast('All notifications marked as read', 'ok');
+      },
+      error: () => {
+        this.toast('Failed to mark notifications as read', 'err');
       }
     });
   }
