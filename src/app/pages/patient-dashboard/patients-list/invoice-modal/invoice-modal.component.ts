@@ -167,42 +167,7 @@ export class InvoiceModalComponent implements OnChanges {
     }
 
     printInvoice() {
-        const printContent = document.getElementById('invoice-print-area');
-        if (!printContent) return;
-
-        let html = printContent.innerHTML;
-        html = html.replace(/src="\.\/logo\.png"/g, `src="${window.location.origin}/logo.png"`);
-        html = html.replace(/src="logo\.png"/g, `src="${window.location.origin}/logo.png"`);
-
-        const win = window.open('', '_blank', 'width=850,height=1000');
-        if (!win) return;
-
-        win.document.write(`<!DOCTYPE html>
-<html>
-<head>
-  <title>Invoice - ${this.invoice.invoiceNumber}</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Tahoma, sans-serif; color: #2d3748; background: white; padding: 15mm 20mm; font-size: 13px; line-height: 1.5; }
-    img { max-width: 160px; height: auto; }
-    table { width: 100%; border-collapse: collapse; }
-    th { text-align: left; padding-bottom: 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #718096; border-bottom: 2px solid #2d3748; }
-    td { padding: 12px 0; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
-    td:last-child { text-align: right; }
-    th:last-child { text-align: right; }
-    tfoot td { border-bottom: none; padding: 6px 0; font-size: 12px; color: #718096; }
-    tfoot tr:last-child td { font-size: 18px; font-weight: 900; color: #2d3748; padding-top: 12px; border-top: 2px solid #2d3748; }
-    tfoot tr:last-child td:last-child { color: #1a7fd4; }
-    lucide-icon, svg { display: none !important; }
-    @page { size: A4 portrait; margin: 0; }
-  </style>
-</head>
-<body>${html}</body>
-</html>`);
-
-        win.document.close();
-        win.focus();
-        setTimeout(() => { win.print(); win.close(); }, 500);
+        window.print();
     }
     onClose() {
         this.closed.emit();
