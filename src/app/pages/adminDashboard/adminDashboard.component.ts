@@ -8,7 +8,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { UserResponse, CreateUserRequest, NotificationResponse, RoleName } from '../../core/models/index';
 import { SidebarComponent } from '../../components/sidebar/sidebar';
 import { UserTableComponent } from './user-table/user-table.component';
-import { NotificationsListComponent } from './notifications-list/notifications-list.component';
+// import { NotificationsListComponent } from './notifications-list/notifications-list.component';
 import { AddUserModalComponent } from './modals/add-user-modal/add-user-modal.component';
 import { ViewUserModalComponent } from './modals/view-user-modal/view-user-modal.component';
 import { NotifModalComponent } from './modals/notif-modal/notif-modal.component';
@@ -19,8 +19,8 @@ import { ChartsComponent } from './charts/charts.component';
   standalone: true,
   imports: [
     CommonModule, FormsModule, SidebarComponent,
-    UserTableComponent, NotificationsListComponent,
-    AddUserModalComponent, ViewUserModalComponent, NotifModalComponent, ChartsComponent
+    UserTableComponent, ChartsComponent,
+    AddUserModalComponent, ViewUserModalComponent, NotifModalComponent, 
   ],
   templateUrl: './adminDashboard.component.html',
   styleUrls: ['./adminDashboard.component.css']

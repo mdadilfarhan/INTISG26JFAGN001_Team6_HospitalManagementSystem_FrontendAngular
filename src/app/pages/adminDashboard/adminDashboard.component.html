@@ -1,8 +1,8 @@
 <div class="bg-base"></div>
-<div class="bg-orb bg-orb-1"></div>
+<!-- <div class="bg-orb bg-orb-1"></div>
 <div class="bg-orb bg-orb-2"></div>
 <div class="bg-orb bg-orb-3"></div>
-<div class="bg-grid"></div>
+<div class="bg-grid"></div> -->
 
 <div class="relative z-10 flex h-screen overflow-hidden">
 
@@ -30,7 +30,7 @@
             class="border-none bg-transparent outline-none text-[13px] text-navy-900 w-full placeholder:text-[#6b8ab5]"
             [(ngModel)]="searchQuery" (input)="onSearch()">
         </div>
-        <button class="icon-btn w-[38px] h-[38px] rounded-xl border border-white/85 flex items-center justify-center bg-white/62 backdrop-blur-md transition-all duration-200 hover:bg-white/88 relative"
+        <button class="icon-btn w-[38px] h-[38px] rounded-xl border border-white/88 flex items-center justify-center bg-white backdrop-blur-md transition-all duration-200 hover:bg-white/88 relative"
           (click)="showNotifModal = true">
           <svg class="w-[17px] h-[17px] fill-[#2d4a7a]" viewBox="0 0 24 24">
             <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
@@ -39,7 +39,7 @@
             class="absolute top-[7px] right-[7px] w-[7px] h-[7px] rounded-full bg-red-400 border-[1.5px] border-white">
           </span>
         </button>
-        <button class="w-[38px] h-[38px] rounded-xl border border-white/85 flex items-center justify-center bg-white/62 backdrop-blur-md transition-all duration-200 hover:bg-white/88"
+        <button class="w-[38px] h-[38px] rounded-xl border border-white/88 flex items-center justify-center bg-white backdrop-blur-md transition-all duration-200 hover:bg-white/88"
           (click)="loadUsers()">
           <svg class="w-[17px] h-[17px] fill-[#2d4a7a]" viewBox="0 0 24 24">
             <path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />

@@ -59,6 +59,10 @@ export class PharmacyDashboardComponent implements OnInit, OnDestroy {
     this.router.navigate(['/pharmacy-dashboard', tab]);
   }
 
+  openNotifModal(): void {
+    this.setTab('notifications');
+  }
+
   logout(): void {
     this.authService.logout();
   }

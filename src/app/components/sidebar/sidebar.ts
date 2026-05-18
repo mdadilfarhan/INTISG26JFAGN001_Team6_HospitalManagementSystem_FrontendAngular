@@ -49,7 +49,7 @@ export class SidebarComponent implements OnInit {
     ],
   };
 
-  private readonly pharmacistRoutes = new Set(['medicines', 'dispenses', 'notifications']);
+  private readonly pharmacistRoutes = new Set(['medicines', 'dispenses']);
 
   constructor(private authService: AuthService, private router: Router) {}
 

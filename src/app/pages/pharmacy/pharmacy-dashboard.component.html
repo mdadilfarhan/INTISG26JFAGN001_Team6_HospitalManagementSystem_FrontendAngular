@@ -2,6 +2,7 @@
   <app-sidebar
     [activeRoute]="activeTab"
     [unreadCount]="unreadCount"
+    (notifClicked)="openNotifModal()"
     (logoutClicked)="logout()">
   </app-sidebar>
 

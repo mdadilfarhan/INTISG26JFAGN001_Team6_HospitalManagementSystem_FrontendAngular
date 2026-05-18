@@ -1,58 +1,11 @@
 <!-- Background -->
 <div class="bg-base"></div>
-<div class="bg-orb bg-orb-1"></div>
+<!-- <div class="bg-orb bg-orb-1"></div>
 <div class="bg-orb bg-orb-2"></div>
-<div class="bg-grid"></div>
+<div class="bg-grid"></div> -->
 
 <div class="app">
 
-  <!-- ═══════════════════════════════
-       SIDEBAR
-  ═══════════════════════════════ -->
-  <!-- <aside class="sidebar">
-    <div class="logo-icon">
-      <div class="flex items-center flex-shrink-0 my-6">
-        <img src="logo.png" alt="Pulse Point" class="w-[150px] h-[40px] object-contain" />
-      </div>
-
-    </div>
-
-    <nav class="sb-nav">
-      <div class="sb-section">Operations</div>
-
-      <div class="nav-item" [class.active]="currentView === 'dashboard'" (click)="currentView = 'dashboard'">
-        <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
-        <span class="nav-label">Dashboard</span>
-      </div>
-
-      <div class="nav-item" [class.active]="currentView === 'queue'" (click)="currentView = 'queue'">
-        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg>
-        <span class="nav-label">Test Queue</span>
-        <span class="nav-badge" *ngIf="pendingCount() > 0">{{pendingCount()}}</span>
-      </div>
-
-      <div class="sb-section">System</div>
-
-      <div class="nav-item" [class.active]="showNotifPanel" (click)="openNotifications()">
-        <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
-        <span class="nav-label">Notifications</span>
-        <span class="nav-badge notif-badge-red" *ngIf="unreadCount > 0">{{unreadCount}}</span>
-      </div>
-    </nav>
-
-    <div class="sb-profile-wrap">
-      <div class="sb-profile">
-        <div class="avatar">{{userInitials()}}</div>
-        <div class="sb-profile-info">
-          <div class="sb-profile-name">{{currentUser}}</div>
-          <div class="sb-profile-role">Lab Technician</div>
-        </div>
-        <div class="logout-icon" (click)="logout()" title="Logout">
-          <svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
-        </div>
-      </div>
-    </div>
-  </aside> -->
   <app-sidebar
     [activeRoute]="currentView"
     [unreadCount]="unreadCount"

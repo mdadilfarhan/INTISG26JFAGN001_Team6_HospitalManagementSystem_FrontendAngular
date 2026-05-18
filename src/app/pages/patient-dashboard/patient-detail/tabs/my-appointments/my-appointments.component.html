@@ -187,7 +187,7 @@
                             @for (lab of appt.labResults; track lab.id) {
                             <div class="px-3 py-2 flex items-center justify-between gap-3 text-xs">
                                 <div class="min-w-0 flex-1">
-                                    <p class="font-semibold text-gray-900">Test #{{ lab.labTestId }}</p>
+                                    <p class="font-semibold text-gray-900">Test {{ lab.labTestId }}</p>
                                     <p class="text-[10px] text-gray-500">
                                         <span [class.text-red-600]="lab.isAbnormal">{{ lab.resultValue }} {{ lab.unit
                                             }}</span>

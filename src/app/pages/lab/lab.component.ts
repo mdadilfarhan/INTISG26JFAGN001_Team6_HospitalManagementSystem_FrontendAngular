@@ -69,6 +69,7 @@ export class LabComponent implements OnInit {
 
   // ── Navigation ──────────────────────────────
   openNotifications() {
+    console.log('openNotifications called');
     this.showNotifPanel = true;
   }
 
